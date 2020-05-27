@@ -27,7 +27,9 @@ public class PlayerListener implements Listener {
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
 
-        if (block == null || block.getType() == Material.AIR || !event.getAction().name().contains("RIGHT")) return;
+        if (block == null || block.getType() == Material.AIR || !event.getAction().name().contains("RIGHT")
+                || !event.getHand().name().equalsIgnoreCase("HAND"))
+            return;
 
         event.setCancelled(true);
 
@@ -37,10 +39,7 @@ public class PlayerListener implements Listener {
 
             if (artifactManager.getPlayerArtifactMap().containsKey(player.getUniqueId())
                     && artifactManager.getPlayerArtifactMap().get(player.getUniqueId()).contains(artifact.getElement())) {
-                Core.getInstance().getLogger().info("Element = " + artifact.getElement());
-                Core.getInstance().getLogger().info("Player element = " + artifactManager.getPlayerArtifactMap().get(player.getUniqueId()).toString());
                 player.sendTitle("§cТы уже подобрал этот артефакт", "", 15, 20, 15);
-
                 return;
             }
 

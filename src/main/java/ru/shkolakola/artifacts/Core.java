@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.typesafe.config.ConfigValueFactory;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.plugin.java.annotation.dependency.Dependency;
 import org.bukkit.plugin.java.annotation.dependency.DependsOn;
@@ -25,7 +26,7 @@ import ru.shkolakola.artifacts.repository.JsonPlayerRepository;
  * @date 21.05.2020
  */
 
-@Plugin(name = "Artifacts", version = "1.0")
+@Plugin(name = "Artifacts", version = "1.0-Final")
 @Author(value = "DokanBoy")
 @Website(value = "shkolakola.ru")
 @DependsOn({@Dependency("BenioApi"), @Dependency("Vault"), @Dependency("HolographicDisplays")})
@@ -64,6 +65,13 @@ public class Core extends BenioPlugin {
         artifactManager = new ArtifactManager(artifactRepository, playerRepository);
 
         registerListener(new PlayerListener());
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                playerRepository.save();
+            }
+        }, 20 *60, 20 * 60);
     }
 
     @Override
