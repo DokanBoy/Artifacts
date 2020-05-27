@@ -15,7 +15,6 @@ import ru.shkolakola.artifacts.artifact.ArtifactManager;
  * @author Alexey Zakharov
  * @date 21.05.2020
  */
-
 public class PlayerListener implements Listener {
     private static final ArtifactManager artifactManager = Core.getArtifactManager();
 

@@ -6,8 +6,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.abstractcoder.benioapi.item.ItemBuilder;
 import ru.shkolakola.artifacts.Core;
 import ru.shkolakola.artifacts.repository.ArtifactRepository;
@@ -17,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Consumer;
 
 /**
  * @author Alexey Zakharov

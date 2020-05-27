@@ -2,10 +2,8 @@ package ru.shkolakola.artifacts.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
 import ru.abstractcoder.benioapi.jackson.util.JsonFileRepository;
 import ru.shkolakola.artifacts.Core;
-import ru.shkolakola.artifacts.artifact.Artifact;
 
 import java.io.*;
 import java.util.HashMap;
