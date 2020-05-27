@@ -32,11 +32,15 @@ public class PlayerListener implements Listener {
         event.setCancelled(true);
 
         for (Artifact artifact : artifactManager.getArtifacts()) {
-            if (!artifact.getLocation().equals(block.getLocation())) continue;
+            if (!artifact.getLocation().equals(block.getLocation()))
+                continue;
 
             if (artifactManager.getPlayerArtifactMap().containsKey(player.getUniqueId())
                     && artifactManager.getPlayerArtifactMap().get(player.getUniqueId()).contains(artifact.getElement())) {
+                Core.getInstance().getLogger().info("Element = " + artifact.getElement());
+                Core.getInstance().getLogger().info("Player element = " + artifactManager.getPlayerArtifactMap().get(player.getUniqueId()).toString());
                 player.sendTitle("§cТы уже подобрал этот артефакт", "", 15, 20, 15);
+
                 return;
             }
 
@@ -53,6 +57,8 @@ public class PlayerListener implements Listener {
                         "§fТы получаешь бонус в 20 баллов", 15, 20, 15);
                 Core.getVaultServiceProvider().depositMoney(player, 20);
             }
+
+            return;
         }
     }
 
