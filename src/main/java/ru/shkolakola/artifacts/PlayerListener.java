@@ -1,5 +1,6 @@
 package ru.shkolakola.artifacts;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -26,7 +27,10 @@ public class PlayerListener implements Listener {
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
 
-        if (block == null || block.getType() == Material.AIR || !event.getAction().name().contains("RIGHT")
+        if (block == null
+                || block.getType() != Material.DISPENSER
+                || block.getType() != Material.DROPPER
+                || !event.getAction().name().contains("RIGHT")
                 || !event.getHand().name().equalsIgnoreCase("HAND"))
             return;
 
@@ -38,7 +42,10 @@ public class PlayerListener implements Listener {
 
             if (artifactManager.getPlayerArtifactMap().containsKey(player.getUniqueId())
                     && artifactManager.getPlayerArtifactMap().get(player.getUniqueId()).contains(artifact.getElement())) {
-                player.sendTitle("§cТы уже подобрал этот артефакт", "", 15, 20, 15);
+                player.sendTitle(
+                        ChatColor.translateAlternateColorCodes('&', Core.getConfiguration().getHandle().getString("already_picked_up")),
+                        ChatColor.translateAlternateColorCodes('&', Core.getConfiguration().getHandle().getString("already_picked_up-sub")),
+                        15, 20, 15);
                 return;
             }
 
@@ -47,15 +54,18 @@ public class PlayerListener implements Listener {
                     artifactManager.getPlayerArtifactMap().get(player.getUniqueId()).size();
 
             if (leftArtifacts != 0) {
-                player.sendTitle("§aПоздравляем, ты нашел один из артефактов Абсолюта",
-                        "§fОсталось {left} артефактов до получения бонусных баллов"
-                                .replace("{left}", String.valueOf(leftArtifacts)), 15, 20, 15);
+                player.sendTitle(
+                        ChatColor.translateAlternateColorCodes('&', Core.getConfiguration().getHandle().getString("picked_up")),
+                        ChatColor.translateAlternateColorCodes('&', Core.getConfiguration().getHandle().getString("picked_up-sub"))
+                                .replace("{left}", String.valueOf(leftArtifacts)),
+                        15, 20, 15);
             } else {
-                player.sendTitle("§aПоздравляем, ты собрал все артефакты Абсолюта",
-                        "§fТы получаешь бонус в 20 баллов", 15, 20, 15);
+                player.sendTitle(
+                        ChatColor.translateAlternateColorCodes('&', Core.getConfiguration().getHandle().getString("last_artifact")),
+                        ChatColor.translateAlternateColorCodes('&', Core.getConfiguration().getHandle().getString("last_artifact-sub")),
+                        15, 20, 15);
                 Core.getVaultServiceProvider().depositMoney(player, 20);
             }
-
             return;
         }
     }

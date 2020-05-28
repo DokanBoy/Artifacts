@@ -91,4 +91,7 @@ public class Core extends BenioPlugin {
         playerRepository.save();
     }
 
+    public static HoconConfig getConfiguration() {
+        return config;
+    }
 }
