@@ -21,7 +21,7 @@ import ru.shkolakola.artifacts.repository.JsonPlayerRepository;
  * @author Alexey Zakharov
  * @date 21.05.2020
  */
-@Plugin(name = "Artifacts", version = "1.0-Final")
+@Plugin(name = "Artifacts", version = "1.1-Final")
 @Author(value = "DokanBoy")
 @Website(value = "shkolakola.ru")
 @DependsOn({@Dependency("BenioApi"), @Dependency("Vault"), @Dependency("HolographicDisplays")})
