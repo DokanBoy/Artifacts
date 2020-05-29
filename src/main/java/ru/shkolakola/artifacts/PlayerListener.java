@@ -1,5 +1,6 @@
 package ru.shkolakola.artifacts;
 
+import com.typesafe.config.Config;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -17,7 +18,10 @@ import ru.shkolakola.artifacts.artifact.ArtifactManager;
  * @date 21.05.2020
  */
 public class PlayerListener implements Listener {
+
     private static final ArtifactManager artifactManager = Core.getArtifactManager();
+    private static final Config config = Core.getConfiguration().getHandle();
+
 
     public PlayerListener() {
     }
@@ -29,9 +33,8 @@ public class PlayerListener implements Listener {
 
         if (block == null
                 || block.getType() != Material.DISPENSER
-                || block.getType() != Material.DROPPER
                 || !event.getAction().name().contains("RIGHT")
-                || !event.getHand().name().equalsIgnoreCase("HAND"))
+                || !event.getHand().name().equals("HAND"))
             return;
 
         event.setCancelled(true);
@@ -43,8 +46,8 @@ public class PlayerListener implements Listener {
             if (artifactManager.getPlayerArtifactMap().containsKey(player.getUniqueId())
                     && artifactManager.getPlayerArtifactMap().get(player.getUniqueId()).contains(artifact.getElement())) {
                 player.sendTitle(
-                        ChatColor.translateAlternateColorCodes('&', Core.getConfiguration().getHandle().getString("already_picked_up")),
-                        ChatColor.translateAlternateColorCodes('&', Core.getConfiguration().getHandle().getString("already_picked_up-sub")),
+                        ChatColor.translateAlternateColorCodes('&', config.getString("messages.already_picked_up")),
+                        ChatColor.translateAlternateColorCodes('&', config.getString("messages.already_picked_up-sub")),
                         15, 20, 15);
                 return;
             }
@@ -55,14 +58,14 @@ public class PlayerListener implements Listener {
 
             if (leftArtifacts != 0) {
                 player.sendTitle(
-                        ChatColor.translateAlternateColorCodes('&', Core.getConfiguration().getHandle().getString("picked_up")),
-                        ChatColor.translateAlternateColorCodes('&', Core.getConfiguration().getHandle().getString("picked_up-sub"))
+                        ChatColor.translateAlternateColorCodes('&', config.getString("messages.picked_up")),
+                        ChatColor.translateAlternateColorCodes('&', config.getString("messages.picked_up-sub"))
                                 .replace("{left}", String.valueOf(leftArtifacts)),
                         15, 20, 15);
             } else {
                 player.sendTitle(
-                        ChatColor.translateAlternateColorCodes('&', Core.getConfiguration().getHandle().getString("last_artifact")),
-                        ChatColor.translateAlternateColorCodes('&', Core.getConfiguration().getHandle().getString("last_artifact-sub")),
+                        ChatColor.translateAlternateColorCodes('&', config.getString("messages.last_artifact")),
+                        ChatColor.translateAlternateColorCodes('&', config.getString("messages.last_artifact-sub")),
                         15, 20, 15);
                 Core.getVaultServiceProvider().depositMoney(player, 20);
             }
