@@ -62,7 +62,6 @@ public class Core extends BenioPlugin {
 
     @Override
     protected void onPluginEnable() throws Throwable {
-        saveResource("config.conf", false);
         instance = this;
 
         vaultServiceProvider = new VaultServiceProvider();
